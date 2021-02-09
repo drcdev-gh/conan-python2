@@ -1,0 +1,21 @@
+language: c
+
+os:
+    - linux
+
+compiler:
+    - gcc
+
+install:
+    - pip install --user conan
+    - conan user
+
+script:
+    - conan export travis/travis
+    - conan install python2/2.7.13@travis/travis --build -g virtualenv
+    - source activate.sh
+    - which python2.7 | grep .conan
+    - source deactivate.sh
+
+notifications:
+      email: false
